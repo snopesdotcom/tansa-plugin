@@ -213,39 +213,38 @@ function field_callback( $arguments ) {
     // Check which type of field we want
     switch( $arguments['type'] ){
 		case 'text': // If it is a text field
-			printf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" title="%3$s" value="%4$s" class="regular-text" />', $arguments['uid'], $arguments['type'], $arguments['placeholder'], $value );
+			printf( '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" title="%3$s" value="%4$s" class="regular-text" />', esc_attr( $arguments['uid'] ), esc_attr( $arguments['type'] ), esc_attr( $arguments['placeholder'] ), esc_attr( $value ) );
 			break;
 		case 'textarea': // If it is a textarea
-			printf( '<textarea name="%1$s" id="%1$s" placeholder="%2$s" rows="5" cols="50">%3$s</textarea>', $arguments['uid'], $arguments['placeholder'], $value );
+			printf( '<textarea name="%1$s" id="%1$s" placeholder="%2$s" rows="5" cols="50">%3$s</textarea>', esc_attr( $arguments['uid'] ), esc_attr( $arguments['placeholder'] ), esc_textarea( $value ));
 			break;
 		case 'select': // If it is a select dropdown
 			if( ! empty ( $arguments['options'] ) && is_array( $arguments['options'] ) ){
 				$options_markup = ’;
 				foreach( $arguments['options'] as $key => $label ){
-					$options_markup .= sprintf( '<option value="%s" %s>%s</option>', $key, selected( $value, $key, false ), $label );
+					$options_markup .= sprintf( '<option value="%s" %s>%s</option>', esc_attr( $key ), selected( $value, $key, false ), esc_html( $label ));
 				}
-				printf( '<select name="%1$s" id="%1$s">%2$s</select>', $arguments['uid'], $options_markup );
+				printf( '<select name="%1$s" id="%1$s">%2$s</select>', esc_attr( $arguments['uid'] ), esc_html( $options_markup ) );
 			}
 			break;
 		case 'radio': // If it is a radio button
 			if( ! empty ( $arguments['options'] ) && is_array( $arguments['options'] ) ){
-				$options_markup = '';
 				foreach( $arguments['options'] as $key => $optionValue ){
-					$options_markup .= sprintf('<li><input name="%1$s" type="%2$s" title="%3$s" value="%4$s" id="%4$s" %5$s /> <label for="%4$s" style="vertical-align: initial;" >%6$s</label> </li>', $arguments['uid'], $arguments['type'], $arguments['placeholder'], $optionValue, checked($optionValue, $value, false), $key);	
+					$options_markup .= sprintf('<li><input name="%1$s" type="%2$s" title="%3$s" value="%4$s" id="%4$s" %5$s /> <label for="%4$s" style="vertical-align: initial;" >%6$s</label> </li>', esc_attr( $arguments['uid'] ), esc_attr( $arguments['type'] ), esc_attr( $arguments['placeholder'] ), esc_attr( $optionValue ), checked($optionValue, $value, false), esc_html( $key ));
 				}
-				printf('<ul style="margin:0px;">%1$s</ul>', $options_markup);
+				printf('<ul style="margin:0px;">%1$s</ul>', esc_html( $options_markup ) );
 			}
 			break;
 	}
 
     // If there is help text
     if( $helper = $arguments['helper'] ){
-        printf( '<span class="helper"> %s</span>', $helper ); // Show it
+        printf( '<span class="helper"> %s</span>', esc_html( $helper ) ); // Show it
     }
 
     // If there is supplemental text
     if( $supplimental = $arguments['supplemental'] ){
-        printf( '<p class="description">%s</p>', $supplimental ); // Show it
+        printf( '<p class="description">%s</p>', esc_html( $supplimental ) ); // Show it
     }
 }
 
