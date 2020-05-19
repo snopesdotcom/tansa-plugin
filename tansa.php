@@ -224,7 +224,7 @@ function field_callback( $arguments ) {
 				foreach( $arguments['options'] as $key => $label ){
 					$options_markup .= sprintf( '<option value="%s" %s>%s</option>', esc_attr( $key ), selected( $value, $key, false ), esc_html( $label ));
 				}
-				printf( '<select name="%1$s" id="%1$s">%2$s</select>', esc_attr( $arguments['uid'] ), esc_html( $options_markup ) );
+				printf( '<select name="%1$s" id="%1$s">%2$s</select>', esc_attr( $arguments['uid'] ), $options_markup );
 			}
 			break;
 		case 'radio': // If it is a radio button
@@ -232,7 +232,7 @@ function field_callback( $arguments ) {
 				foreach( $arguments['options'] as $key => $optionValue ){
 					$options_markup .= sprintf('<li><input name="%1$s" type="%2$s" title="%3$s" value="%4$s" id="%4$s" %5$s /> <label for="%4$s" style="vertical-align: initial;" >%6$s</label> </li>', esc_attr( $arguments['uid'] ), esc_attr( $arguments['type'] ), esc_attr( $arguments['placeholder'] ), esc_attr( $optionValue ), checked($optionValue, $value, false), esc_html( $key ));
 				}
-				printf('<ul style="margin:0px;">%1$s</ul>', esc_html( $options_markup ) );
+				printf('<ul style="margin:0px;">%1$s</ul>', $options_markup );
 			}
 			break;
 	}
